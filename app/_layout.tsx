@@ -1,21 +1,26 @@
-
+import { useTheme } from '@/shared/hooks/useTheme';
 import { Stack } from 'expo-router';
-
-import 'react-native-reanimated';
-
-
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
+import {  View } from 'react-native';
 
 export default function RootLayout() {
+    const {themeColors} = useTheme()
  
-
   return (
-   
-      <Stack>
-        
-      </Stack>
-    
+    <View style={{flex: 1, backgroundColor: themeColors?.background}}>
+        <Stack  screenOptions={{
+            contentStyle: {
+                backgroundColor: 'transparent', 
+             },
+            gestureEnabled: true,
+            gestureDirection: 'horizontal',
+            animation: 'slide_from_right',
+            headerShown: false,
+        }}>
+            <Stack.Screen 
+                name='welcome'
+                options={{headerShown: false}}
+            />
+        </Stack>
+    </View>
   );
 }
