@@ -6,7 +6,11 @@ export default function RootLayout() {
     const {themeColors} = useTheme()
  
   return (
-    <View style={{flex: 1, backgroundColor: themeColors?.background}}>
+    <View style={{flex: 1, backgroundColor: themeColors?.background,
+        paddingVertical: 32,
+        paddingHorizontal: 18
+
+    }}>
         <Stack  screenOptions={{
             contentStyle: {
                 backgroundColor: 'transparent', 

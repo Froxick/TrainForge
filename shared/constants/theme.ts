@@ -28,22 +28,24 @@ export const Colors : {
     rpeLow: '#2E7D32',
     rpeMedium: '#F9A825',
     rpeHigh: '#C62828',
+    darkTextSecondary: '#6d6d6d',
+    disabledColor: '#757575',
   },
   dark: {
     text: '#F2F2F2',
     textSecondary: '#A1A1A1',
-
+    darkTextSecondary: '#6b6b6b',
     background: '#121212',    
     surface: '#1E1E1E',       
     border: '#2A2A2A',
-
-    primary: '#FF6A00',        
-    secondary: '#FF8C42',
+    disabledColor: '#404040',
+    primary: '#ff3300',        
+    secondary: '#c44032',
 
     icon: '#E0E0E0',
 
     tabIconDefault: '#777777',
-    tabIconSelected: '#FF6A00',
+    tabIconSelected: '#ff4000',
 
     success: '#4CAF50',
     warning: '#FFB300',

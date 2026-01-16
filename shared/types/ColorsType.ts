@@ -1,14 +1,14 @@
 export type ColorsType = {
   text: string;
   textSecondary: string;
-
+  darkTextSecondary : string
   background: string;
   surface: string;        
   border: string;
 
   primary: string;        
   secondary: string;
-
+  disabledColor: string;
   icon: string;
 
   tabIconDefault: string;
