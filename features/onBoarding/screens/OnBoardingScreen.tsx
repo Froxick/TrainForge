@@ -6,6 +6,7 @@ import { ColorsType } from "@/shared/types/ColorsType"
 import { Button } from "@/shared/ui/Button"
 import { useState } from "react"
 import { secureStoreUtil } from "@/shared/lib/secureStoreUtil"
+import { router } from "expo-router"
 
 const {height} = Dimensions.get('screen')
 export const OnBoardingScreen = () => {
@@ -16,6 +17,7 @@ export const OnBoardingScreen = () => {
     }
     const onSubmit = () => {
         secureStoreUtil.addItem('name',name)
+        router.replace('/(tabs)')
     }
     const editName = (t: string) => {
         setName(t)
@@ -53,7 +55,7 @@ export const OnBoardingScreen = () => {
             paddingHorizontal: 10,
             paddingBottom: 40
         }} style={styles.container}>
-            <View>
+            <View style={styles.headerContainer}>
                 <WelcomeHeader 
                     subTitle="Кузница твоей силы"
                     subTitleColor={themeColors?.textSecondary as string}
