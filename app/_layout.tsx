@@ -1,3 +1,4 @@
+import { initRealm } from '@/db/initRealm';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { secureStoreUtil } from '@/shared/lib/secureStoreUtil';
 import { Redirect, Stack } from 'expo-router';
@@ -11,6 +12,7 @@ export default function RootLayout() {
     const[hasName,setHasName] = useState(false)
 
     useEffect(() => {
+        initRealm()
         const name = secureStoreUtil.getItem('name')
         if(name) {
             setHasName(true)

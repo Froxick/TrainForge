@@ -14,7 +14,7 @@ export default function TabsLayout () {
             }}
         >
             <Tabs.Screen name="index" options={{title: 'Главная'}}/>
-            
+            <Tabs.Screen name="exerciseCatalog" options={{title: 'Упражнения'}} />
         </Tabs>
     )
 }
