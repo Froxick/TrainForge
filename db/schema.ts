@@ -1,10 +1,30 @@
 import Realm from 'realm'
 import { EntityStatus, EntityStatusProgram } from './type';
+export class ExerciseCatalog extends Realm.Object<ExerciseCatalog> {
+  id!: string;
+  name!: string;
+  tags!: string[];
+  description?: string;
+  rating!: number;
+  createdByUser!: boolean;
 
+  static schema: Realm.ObjectSchema = {
+    name: 'ExerciseCatalog',
+    primaryKey: 'id',
+    properties: {
+      id: 'string',
+      name: 'string',
+      tags: 'string[]',
+      description: 'string?',
+      rating: { type: 'int', default: 0 },
+      createdByUser: { type: 'bool', default: false },
+    },
+  };
+}
 export class Set extends Realm.Object<Set>
 {
     id!: string;
-    exerciseId!: string;
+    dayExerciseId!: string;
     reps!: number;
     weight!:number;
     rpe?: number;
@@ -16,7 +36,7 @@ export class Set extends Realm.Object<Set>
     primaryKey: "id",
     properties: {
       id: "string",
-      exerciseId: "string",
+      dayExerciseId: "string",
       reps: "int",
       weight: "float",
       rpe: "float?",
@@ -25,33 +45,33 @@ export class Set extends Realm.Object<Set>
     },
   };
 }
-export class Exercise extends Realm.Object<Exercise> { 
-    id!: string;
-    dayId!: string;
-    name!: string;
-    sets!: Realm.List<Set>
-    status!: EntityStatus;
+export class DayExercise extends Realm.Object<DayExercise> {
+  id!: string;
+  dayId!: string;
+  exerciseCatalogId!: string; 
+  sets!: Realm.List<Set>;
+  status!: EntityStatus;
 
-    static schema: Realm.ObjectSchema = {
-        name: 'Exercise',
-        primaryKey: 'id',
-        properties: {
-            id: 'string',
-            dayId: 'string',
-            name: 'string',
-            sets: 'Set[]',
-            status: { type: "string", default: EntityStatus.NotStarted },
-        }
-
-    }
+  static schema: Realm.ObjectSchema = {
+    name: 'DayExercise',
+    primaryKey: 'id',
+    properties: {
+      id: 'string',
+      dayId: 'string',
+      exerciseCatalogId: 'string',
+      sets: 'Set[]',
+      status: { type: 'string', default: EntityStatus.NotStarted },
+    },
+  };
 }
+
 
 export class Day extends Realm.Object<Day>
 {
     id!: string;
     weekId! : string;
     name!: string;
-    exercises!: Realm.List<Exercise>
+    dayExercise!: Realm.List<DayExercise>
     dayIndex!: number;
     status!: EntityStatusProgram;
     description?: string
@@ -64,7 +84,7 @@ export class Day extends Realm.Object<Day>
             id: 'string',
             weekId: 'string',
             name: 'string',
-            exercises:'Exercise[]',
+            dayExercise:'DayExercise[]',
             dayIndex: 'int',
             status: { type: "string", default: EntityStatusProgram.NotStarted },
             description: 'string?'
