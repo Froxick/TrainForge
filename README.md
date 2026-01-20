@@ -1,6 +1,119 @@
-# Welcome to your Expo app 👋
+#TrainForge - мобильное приложение для планирования тренировок и отслеживания прогресса
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Описание проекта
+
+TrainForge - приложение для удобного планирования тренировок и ведения тренировочного дневника.
+Приложение позволяет пользователю создавать тренировочные программы, гибко планировать недели, дни, подходы, вес, повторения и отслеживать прогресс со временем.
+
+Проект разрабатывается как оффлайн мобильное приложение, ориентированное на использование непосредственно в зале - быстро, без интернета и лишних действий. 
+
+
+## Бизнес требования
+
+1. Приложение должно работать без подключения к интернету
+
+2. Данные пользователя должны сохраняться локально и безопасно
+
+3. Пользователь должен иметь возможность:
+
+* вести тренировочный дневник
+
+* структурировать тренировки по программам, неделям и дням
+
+* анализировать свой прогресс
+
+4. Приложение должно быть простым в использовании во время тренировки
+
+5. Архитектура должна позволять расширение функционала (статистика, аналитика, шаблоны программ)
+
+6. Приложение должно быть масштабируемым для добавления новых сущностей (упражнения, теги, рейтинги, описания)
+
+7. UI должен быть адаптирован под мобильные устройства (одна рука, быстрый доступ)
+
+8. Реализация должна соответствовать реальному сценарию использования в спортзале
+
+
+## Пользовательские требования
+
+Пользователь должен иметь возможность:
+
+### Работа с упражнениями  
+
+* просматривать каталог упражнений
+
+* фильтровать упражнения по мышечным группам (тегам)
+
+* добавлять свои собственные упражнения
+
+* видеть описание и назначение упражнения
+
+* использовать упражнения из каталога при планировании тренировок
+
+### Работа с тренировками
+
+* создавать программы тренировок
+
+* разбивать программу на недели и дни
+
+* добавлять упражнения в тренировочный день
+
+* гибко планировать подходы (вес, повторения, RPE/RIR)
+
+* редактировать и удалять подходы
+
+* видеть текущий статус тренировки (не начата / в процессе / завершена)
+
+
+### Удобство использования
+
+* гибкое планирование программ 
+
+* не перегруженный интерфейс
+
+* быстрые отметки о выполненных упражнениях/подходах
+
+* сохранение данных автоматически
+
+* работа без интернета
+
+
+## Используемые технологии
+
+React Native
+
+Expo
+
+TypeScript
+
+SQL LITE Database
+
+Expo Router
+
+EAS Build
+
+## Архитектура данных 
+
+ExerciseCatalog — справочник упражнений
+
+Program → Week → Day — иерархия тренировок
+
+DayExercise — упражнение в конкретный день
+
+Set — конкретный подход
+
+Все данные хранятся локально в SQL LITE 
+
+
+## Цель проекта
+
+Цель проекта — создать реальное, практичное мобильное приложение, которое:
+* упростит планирование и трекинг тренировочного процесса
+
+* не требует интернета
+
+* удобно, быстро и стабильно работает
+
+* может быть расширено до полноценного фитнес-приложения
 
 ## Get started
 
@@ -15,36 +128,3 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    ```bash
    npx expo start
    ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
