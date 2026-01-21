@@ -68,7 +68,7 @@ export class TrainForgeDatabase {
         FOREIGN KEY (exerciseCatalogId) REFERENCES ExerciseCatalog(id)
       );
 
-      CREATE TABLE IF NOT EXISTS Set (
+      CREATE TABLE IF NOT EXISTS ExerciseSet (
         id TEXT PRIMARY KEY,
         dayExerciseId TEXT NOT NULL,
         reps INTEGER NOT NULL,
@@ -85,7 +85,7 @@ export class TrainForgeDatabase {
       CREATE INDEX IF NOT EXISTS idx_week_programId ON Week(programId);
       CREATE INDEX IF NOT EXISTS idx_day_weekId ON Day(weekId);
       CREATE INDEX IF NOT EXISTS idx_dayExercise_dayId ON DayExercise(dayId);
-      CREATE INDEX IF NOT EXISTS idx_set_dayExerciseId ON Set(dayExerciseId);
+      CREATE INDEX IF NOT EXISTS idx_ExerciseSet_dayExerciseId ON ExerciseSet(dayExerciseId);
     `);
   }
 }

@@ -9,7 +9,9 @@ export default function WelcomeLayout () {
                 headerShown: false,
                 animation: "slide_from_right",
                 contentStyle: {
-                    backgroundColor: themeColors?.background
+                    backgroundColor: themeColors?.background,
+                    paddingVertical: 32,
+                     paddingHorizontal: 18
                 }
             }}
         />

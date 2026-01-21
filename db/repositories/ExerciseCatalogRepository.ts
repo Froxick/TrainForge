@@ -1,48 +1,75 @@
-import { nanoid } from "nanoid/non-secure";
-import Realm from "realm"
-import { ExerciseCatalog } from "../schema";
+import * as SQLite from 'expo-sqlite';
+import { nanoid } from 'nanoid/non-secure';
 
 
-export const ExerciseCatalogRepisotory = {
-    getAll ( realm : Realm) {
-        return realm.objects(ExerciseCatalog).sorted('rating',true)
+import { database } from '../schemaDb';
+import { ExerciseCatalog } from '../type';
+
+export const ExerciseCatalogRepository = {
+  getAll: async (): Promise<ExerciseCatalog[]> => {
+    const db = (database as any).db as SQLite.SQLiteDatabase;
+    const result = await db.getAllAsync<ExerciseCatalog>(
+      `SELECT * FROM ExerciseCatalog ORDER BY rating DESC`
+    );
+    return result;
+  },
+
+  getById: async (id: string): Promise<ExerciseCatalog | null> => {
+    const db = (database as any).db as SQLite.SQLiteDatabase;
+    const result = await db.getFirstAsync<ExerciseCatalog>(
+      `SELECT * FROM ExerciseCatalog WHERE id = ?`,
+      [id]
+    );
+    return result ?? null;
+  },
+
+  create: async (
+    data: Omit<ExerciseCatalog, 'id' | 'createdByUser'>
+    ): Promise<void> => {
+    const db = (database as any).db as SQLite.SQLiteDatabase;
+
+    await db.runAsync(
+        `
+        INSERT INTO ExerciseCatalog
+        (id, name, tags, description, rating, createdByUser)
+        VALUES (?, ?, ?, ?, ?, ?)
+        `,
+        {
+        1: nanoid(),
+        2: data.name,
+        3: data.tags ? JSON.stringify(data.tags) : null,
+        4: data.description ?? null,
+        5: data.rating ?? 0,
+        6: 1,
+        }
+    );
     },
 
-    getById(realm: Realm, id: string) {
-        return realm.objectForPrimaryKey(ExerciseCatalog, id);
-    },
 
-    create(
-        realm: Realm,
-        data: Omit<ExerciseCatalog, "id" | "createdByUser">
-    ) {
-        realm.write(() => {
-        realm.create(ExerciseCatalog, {
-            id: nanoid(),
-            ...data,
-            createdByUser: true,
-        });
-        });
-    },
-    update(
-        realm: Realm,
-        id: string,
-        data: Partial<ExerciseCatalog>
-    ) {
-        const ex = realm.objectForPrimaryKey(ExerciseCatalog,id)
-        if(!ex) return;
-        
-        realm.write(() => {
-            Object.assign(ex,data)
-        })
-    },
+  update: async (
+    id: string,
+    data: Partial<ExerciseCatalog>
+  ): Promise<void> => {
+    const db = (database as any).db as SQLite.SQLiteDatabase;
 
-    delete (realm: Realm,id:string) {
-        const ex = realm.objectForPrimaryKey(ExerciseCatalog,id)
-        if(!ex) return 
-        
-        realm.write(() => {
-            realm.delete(ex)
-        })
+    const fields: string[] = [];
+    const values: any[] = [];
+
+    for (const [key, value] of Object.entries(data)) {
+      fields.push(`${key} = ?`);
+      values.push(value);
     }
-}
+
+    if (fields.length === 0) return;
+
+    await db.runAsync(
+      `UPDATE ExerciseCatalog SET ${fields.join(', ')} WHERE id = ?`,
+      [...values, id]
+    );
+  },
+
+  delete: async (id: string): Promise<void> => {
+    const db = (database as any).db as SQLite.SQLiteDatabase;
+    await db.runAsync(`DELETE FROM ExerciseCatalog WHERE id = ?`, [id]);
+  },
+};

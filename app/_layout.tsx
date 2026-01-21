@@ -1,6 +1,8 @@
-import { initRealm } from '@/db/initRealm';
+
+import { database } from '@/db/schemaDb';
 import { useTheme } from '@/shared/hooks/useTheme';
 import { secureStoreUtil } from '@/shared/lib/secureStoreUtil';
+import { seedExerciseCatalog } from '@/shared/lib/seedExerciseCatalog';
 import { Redirect, Stack } from 'expo-router';
 import { useEffect, useState } from 'react';
 import {  ActivityIndicator, View } from 'react-native';
@@ -10,9 +12,15 @@ export default function RootLayout() {
     const {themeColors} = useTheme()
     const [loading,setLoading] = useState(true)
     const[hasName,setHasName] = useState(false)
+    const [ready, setReady] = useState(false)
 
     useEffect(() => {
-        initRealm()
+        (async () => {
+            await database.initialize()
+            await seedExerciseCatalog();
+            setReady(true)
+        })()
+       
         const name = secureStoreUtil.getItem('name')
         if(name) {
             setHasName(true)
@@ -20,7 +28,7 @@ export default function RootLayout() {
         setLoading(false)
     },[])
 
-  if(loading) {
+  if(loading && !ready) {
     return (
          <View style={{flex: 1, backgroundColor: themeColors?.background,
             paddingVertical: 32,
@@ -33,8 +41,7 @@ export default function RootLayout() {
   }
   return (
     <View style={{flex: 1, backgroundColor: themeColors?.background,
-        paddingVertical: 32,
-        paddingHorizontal: 18
+        
 
     }}>
     
@@ -42,6 +49,7 @@ export default function RootLayout() {
         {hasName && <Redirect href="/(tabs)" />}
         <Stack screenOptions={{ headerShown: false, contentStyle: {
             backgroundColor : themeColors?.background,
+             
             
         }
          }}  />
