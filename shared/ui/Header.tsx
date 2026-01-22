@@ -2,9 +2,12 @@ import { StyleSheet, Text, View } from "react-native"
 interface HeaderProps {
     title : string,
     size: number,
-    color: string
+    color: string,
+    subTitle?: string,
+    subTitleColor?: string,
+    subTitleFontSize?: number
 }
-export const Header = ({size,title,color} : HeaderProps) => {
+export const Header = ({size,title,color,subTitle,subTitleColor,subTitleFontSize} : HeaderProps) => {
     const styles = StyleSheet.create({
         container : {
 
@@ -13,6 +16,10 @@ export const Header = ({size,title,color} : HeaderProps) => {
             color: color,
             fontSize: size,
             fontWeight: 'bold'
+        },
+        subTitle: {
+            color: subTitleColor,
+            fontSize: subTitleFontSize
         }
     })
     return (
@@ -20,6 +27,11 @@ export const Header = ({size,title,color} : HeaderProps) => {
             <Text style={styles.text}>
                 {title}
             </Text>
+            {
+                subTitle && (<Text style={styles.subTitle}>
+                    {subTitle}
+                </Text>)
+            }
         </View>
     )
 }
