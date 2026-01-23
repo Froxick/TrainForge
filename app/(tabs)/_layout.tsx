@@ -1,23 +1,24 @@
-import { useTheme } from "@/shared/hooks/useTheme";
+
 import { Tabs } from "expo-router";
 
 import { Ionicons } from '@expo/vector-icons';
+import { Colors } from "@/shared/constants/theme";
 
 
 export default function TabsLayout () {
-    const {themeColors} = useTheme()
+    
     return (
         <Tabs
             screenOptions={({route}) => ({
                 headerShown: false,
                 tabBarStyle: {
-                    backgroundColor: themeColors?.surface,
-                    borderColor: themeColors?.surface
+                    backgroundColor: Colors?.surface,
+                    borderColor: Colors?.surface
                 },
-                tabBarActiveTintColor: themeColors?.primary,
-                tabBarInactiveTintColor: themeColors?.textSecondary,
+                tabBarActiveTintColor: Colors?.primary,
+                tabBarInactiveTintColor: Colors?.textSecondary,
                 sceneStyle: {
-                    backgroundColor: themeColors?.background
+                    backgroundColor: Colors?.background
                 },
                 tabBarIcon: ({ color, size, focused }) => {
                 let iconName: keyof typeof Ionicons.glyphMap;

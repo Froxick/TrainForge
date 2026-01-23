@@ -13,7 +13,8 @@ export const ExerciseCatalogListRender = ({
         container: {
             flexDirection: 'column',
             gap: 15,
-            paddingBottom: 100
+            paddingBottom: 50,
+            marginBottom: 300
         }
     })
     return (

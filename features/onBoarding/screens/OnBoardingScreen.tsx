@@ -1,4 +1,4 @@
-import { useTheme } from "@/shared/hooks/useTheme"
+
 import { Dimensions, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from "react-native"
 import { WelcomeHeader } from "../ui/WelcomeHeader"
 import { WelcomeInput } from "../ui/WelcomeInput"
@@ -7,10 +7,11 @@ import { Button } from "@/shared/ui/Button"
 import { useState } from "react"
 import { secureStoreUtil } from "@/shared/lib/secureStoreUtil"
 import { router } from "expo-router"
+import { Colors } from "@/shared/constants/theme"
 
 const {height} = Dimensions.get('screen')
 export const OnBoardingScreen = () => {
-    const {themeColors} = useTheme()
+    
     const [name,setName] = useState('')
     const validateName = () => {
         return name.length >= 3
@@ -33,11 +34,11 @@ export const OnBoardingScreen = () => {
 
         },
         inputContainer : {
-            backgroundColor: themeColors?.surface,
+            backgroundColor: Colors?.surface,
             borderRadius: 16,
             padding: 20,
             borderWidth: 1,
-            borderColor: themeColors?.border,
+            borderColor: Colors?.border,
             gap: 43,
             marginTop: height / 25
 
@@ -58,11 +59,11 @@ export const OnBoardingScreen = () => {
             <View style={styles.headerContainer}>
                 <WelcomeHeader 
                     subTitle="Кузница твоей силы"
-                    subTitleColor={themeColors?.textSecondary as string}
+                    subTitleColor={Colors?.textSecondary as string}
                     subTitleSize={16}
                     title="TrainForge"
                     size={52}
-                    color={themeColors?.primary as string}
+                    color={Colors?.primary as string}
 
                 />
             </View>
@@ -70,24 +71,24 @@ export const OnBoardingScreen = () => {
                 <WelcomeInput 
                     onChange={(t) => editName(t)}
                     placeholderSub="Как вас зовут?"
-                    colors={themeColors as ColorsType}
+                    colors={Colors as ColorsType}
                     placeholder="Имя"
                     value={name}
                     maxLength={14}
                 />
                 <Button 
-                    disabledColor={themeColors?.disabledColor as string}
+                    disabledColor={Colors?.disabledColor as string}
                     disable={!validateName()}
                     title="Начать"
                     titleSize={16}
                     bold
-                    backgraundColor={themeColors?.primary as string}
-                    textColor={themeColors?.text as string}
+                    backgraundColor={Colors?.primary as string}
+                    textColor={Colors?.text as string}
                     onPress={onSubmit}
                     padding={10}
                     heigh={50}
                     subTitle="Твой прогресс начинается здесь"
-                    subTitleColor={themeColors?.darkTextSecondary}
+                    subTitleColor={Colors?.darkTextSecondary}
                 />
                 
             </View>

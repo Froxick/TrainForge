@@ -10,7 +10,7 @@ export type ColorsType = {
   secondary: string;
   disabledColor: string;
   icon: string;
-
+  darkRed: string;
   tabIconDefault: string;
   tabIconSelected: string;
 
