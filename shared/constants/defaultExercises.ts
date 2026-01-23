@@ -5,14 +5,14 @@ export const DEFAULT_EXERCISES : IExerciseCatalog[] = [
     {
         id: "bench_press",
         name: "Жим штанги лёжа",
-        tags: ["chest", "triceps","shoulders"],
+        tags: ["Грудь", "Трицепс","Плечи"],
         description: "Базовое упражнение для развития грудных мышц, трицепсов и передней дельты.",
         rating: 5,
         createdByUser: false,
     }, {
         id: "incline_bench",
         name: "Жим штанги на наклонной скамье",
-        tags: ["chest", "shoulders", "triceps"],
+        tags: ["Грудь", "Плечи", "Трицепс"],
         description: "Акцент на верх груди, хорошо развивает силу и массу.",
         rating: 4,
         createdByUser: false,
@@ -20,7 +20,7 @@ export const DEFAULT_EXERCISES : IExerciseCatalog[] = [
     {
         id: "dips_chest",
         name: "Отжимания на брусьях (грудь)",
-        tags: ["chest", "triceps", "shoulders"],
+        tags: ["Грудь", "Трицепс", "Плечи"],
         description: "Отличное базовое упражнение на грудь с собственным весом.",
         rating: 5,
         createdByUser: false,
@@ -28,7 +28,7 @@ export const DEFAULT_EXERCISES : IExerciseCatalog[] = [
     {
         id: "close_grip_bench",
         name: "Жим штанги узким хватом",
-        tags: ["triceps", "chest"],
+        tags: ["Трицепс", "Грудь"],
         description: "Базовое упражнение для трицепса с вовлечением груди.",
         rating: 5,
         createdByUser: false,
@@ -36,7 +36,7 @@ export const DEFAULT_EXERCISES : IExerciseCatalog[] = [
     {
         id: "deadlift_classic",
         name: "Становая тяга (классика)",
-        tags: ["back", "legs", "core"],
+        tags: ["Спина", "Ноги", "Кор"],
         description: "Классическая становая тяга с акцентом на спину.",
         rating: 5,
         createdByUser: false,
@@ -44,7 +44,7 @@ export const DEFAULT_EXERCISES : IExerciseCatalog[] = [
     {
         id: "deadlift_sumo",
         name: "Становая тяга (сумо)",
-        tags: ["back", "legs", "core"],
+        tags: ["Спина", "Ноги", "Кор"],
         description: "Становая тяга с широкой постановкой ног, меньше нагрузки на спину.",
         rating: 5,
         createdByUser: false,
@@ -52,7 +52,7 @@ export const DEFAULT_EXERCISES : IExerciseCatalog[] = [
     {
         id: "barbell_row",
         name: "Тяга штанги в наклоне",
-        tags: ["back"],
+        tags: ["Спина"],
         description: "Базовое упражнение для толщины спины.",
         rating: 5,
         createdByUser: false,
@@ -60,7 +60,7 @@ export const DEFAULT_EXERCISES : IExerciseCatalog[] = [
     {
         id: "seated_row",
         name: "Тяга горизонтального блока",
-        tags: ["back"],
+        tags: ["Спина"],
         description: "Контролируемая тяга для средней части спины.",
         rating: 4,
         createdByUser: false,
@@ -68,14 +68,14 @@ export const DEFAULT_EXERCISES : IExerciseCatalog[] = [
    {
         id: "pull_up",
         name: "Подтягивания",
-        tags: ["back", "biceps","arms"],
+        tags: ["Спина", "Бицепс","Предплечья"],
         description: "Лучшее упражнение для ширины спины и силы рук.",
         rating: 5,
         createdByUser: false,
     }, {
         id: "lat_pulldown",
         name: "Тяга верхнего блока",
-        tags: ["back"],
+        tags: ["Спина"],
         description: "Отличная альтернатива подтягиваниям.",
         rating: 4,
         createdByUser: false,
@@ -83,7 +83,7 @@ export const DEFAULT_EXERCISES : IExerciseCatalog[] = [
     {
         id: "lateral_raise",
         name: "Махи гантелей в стороны",
-        tags: ["shoulders"],
+        tags: ["Плечи"],
         description: "Лучшее изолирующее упражнение на среднюю дельту.",
         rating: 5,
         createdByUser: false,
@@ -91,7 +91,7 @@ export const DEFAULT_EXERCISES : IExerciseCatalog[] = [
     {
         id: "front_raise",
         name: "Махи гантелей перед собой",
-        tags: ["shoulders"],
+        tags: ["Плечи"],
         description: "Изолирующее упражнение на переднюю дельту.",
         rating: 4,
         createdByUser: false,
@@ -99,7 +99,7 @@ export const DEFAULT_EXERCISES : IExerciseCatalog[] = [
     {
         id: "rear_delt_fly",
         name: "Разведения на заднюю дельту",
-        tags: ["shoulders", "back"],
+        tags: ["Плечи", "Спина"],
         description: "Упражнение для баланса плечевого пояса.",
         rating: 4,
         createdByUser: false,
@@ -107,7 +107,7 @@ export const DEFAULT_EXERCISES : IExerciseCatalog[] = [
     {
         id: "skull_crushers",
         name: "Французский жим лёжа",
-        tags: ["triceps"],
+        tags: ["Трицепс"],
         description: "Изолированное упражнение для трицепса.",
         rating: 4,
         createdByUser: false,
@@ -115,7 +115,7 @@ export const DEFAULT_EXERCISES : IExerciseCatalog[] = [
     {
         id: "triceps_block",
         name: "Трицепс в кроссовере",
-        tags: ["triceps"],
+        tags: ["Трицепс"],
         description: "Изолированное упражнение для трицепса.",
         rating: 4,
         createdByUser: false,
@@ -124,7 +124,7 @@ export const DEFAULT_EXERCISES : IExerciseCatalog[] = [
     {
         id: "incline_dumbbell_press",
         name: "Жим гантелей на наклонной скамье",
-        tags: ["chest","shoulders", "triceps"],
+        tags: ["Грудь","Плечи", "Трицепс"],
         description: "Развивает грудь и трицепс.",
         rating: 5,
         createdByUser: false,
@@ -132,7 +132,7 @@ export const DEFAULT_EXERCISES : IExerciseCatalog[] = [
     {
         id: "biceps_curl",
         name: "Подъём штанги на бицепс",
-        tags: ["arms", "biceps"],
+        tags: ["Предплечья", "Бицепс"],
         description: "Изолированное упражнение для бицепса.",
         rating: 5,
         createdByUser: false,
@@ -140,7 +140,7 @@ export const DEFAULT_EXERCISES : IExerciseCatalog[] = [
     {
         id: "biceps_curl_dumbbells",
         name: "Подъём гантелей на бицепс",
-        tags: ["arms", "biceps"],
+        tags: ["Предплечья", "Бицепс"],
         description: "Изолированное упражнение для бицепса.",
         rating: 5,
         createdByUser: false,
@@ -148,7 +148,7 @@ export const DEFAULT_EXERCISES : IExerciseCatalog[] = [
     {
         id: "biceps_curl_molot",
         name: "Молотки на бицепс",
-        tags: ["arms", "biceps"],
+        tags: ["Предплечья", "Бицепс"],
         description: "Изолированное упражнение для бицепса с акцентом на предплечья.",
         rating: 4,
         createdByUser: false,
@@ -156,7 +156,7 @@ export const DEFAULT_EXERCISES : IExerciseCatalog[] = [
     {
         id: "leg_press",
         name: "Жим ногами",
-        tags: ["legs"],
+        tags: ["Ноги"],
         description: "Безопасное упражнение для квадрицепсов.",
         rating: 4,
         createdByUser: false,
@@ -164,7 +164,7 @@ export const DEFAULT_EXERCISES : IExerciseCatalog[] = [
     {
         id: "leg_extension",
         name: "Разгибание ног в тренажере",
-        tags: ["legs"],
+        tags: ["Ноги"],
         description: "Безопасное упражнение для прокачки ног.",
         rating: 3,
         createdByUser: false,

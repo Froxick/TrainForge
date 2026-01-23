@@ -8,7 +8,7 @@ export const Colors : {
   light: {
     text: '#1C1C1C',
     textSecondary: '#5F5F5F',
-
+    surfaceTwo: '',
     background: '#F4F4F4',
     surface: '#FFFFFF',
     border: '#E0E0E0',
@@ -36,7 +36,8 @@ export const Colors : {
     textSecondary: '#A1A1A1',
     darkTextSecondary: '#6b6b6b',
     background: '#121212',    
-    surface: '#1E1E1E',       
+    surface: '#1E1E1E', 
+    surfaceTwo: '#282727'   ,  
     border: '#2A2A2A',
     disabledColor: '#404040',
     primary: '#ff3300',        

@@ -3,11 +3,14 @@ import { ActivityIndicator, View } from "react-native"
 import { Header } from "@/shared/ui/Header"
 import { useTheme } from "@/shared/hooks/useTheme"
 import { useExerciseCatalog } from "../hooks/useExerciseCatalog"
+import { ColorsType } from "@/shared/types/ColorsType"
+import { ExerciseCatalogListRender } from "../UI/ExerciseCatalogListRender"
+
 
 export const ExerciseCatalogScreen = () => {
     const {themeColors} = useTheme()
     const {items,loading} = useExerciseCatalog()
-    console.log(items[0].tags)
+    
     return (
         <View>
             <View>
@@ -17,10 +20,13 @@ export const ExerciseCatalogScreen = () => {
                     color={themeColors?.text as string}
                 />
             </View>
-            <View>
+            <View style={{marginTop: 30}}>
                 {
                     loading ? (<ActivityIndicator size={'large'}/>) : (
-                        <View></View>
+                        <ExerciseCatalogListRender 
+                            items={items}
+                            colors={themeColors as ColorsType}
+                        />
 
                     )
                 }

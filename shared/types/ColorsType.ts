@@ -5,7 +5,7 @@ export type ColorsType = {
   background: string;
   surface: string;        
   border: string;
-
+  surfaceTwo: string
   primary: string;        
   secondary: string;
   disabledColor: string;
