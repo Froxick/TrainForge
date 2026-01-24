@@ -5,9 +5,10 @@ import { ExerciseCatalogCard } from "./ExerciseCatalogCard"
 interface ExerciseCatalogListRenderProps {
     items: ExerciseCatalog[]
     colors: ColorsType
+    openViewModal : (item: ExerciseCatalog) => void
 }   
 export const ExerciseCatalogListRender = ({
-    items,colors
+    items,colors,openViewModal
 }: ExerciseCatalogListRenderProps) => {
     const styles = StyleSheet.create({
         container: {
@@ -26,6 +27,7 @@ export const ExerciseCatalogListRender = ({
                         key={el.id}
                         item={el}
                         colors={colors}
+                        onPress={() => openViewModal(el)}
                         />
                     ))
                 }

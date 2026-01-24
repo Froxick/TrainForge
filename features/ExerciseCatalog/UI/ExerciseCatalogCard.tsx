@@ -2,23 +2,15 @@ import { ExerciseCatalog } from "@/db/type"
 import { ColorsType } from "@/shared/types/ColorsType"
 import { Ionicons } from "@expo/vector-icons"
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
+import { parseTags } from "../util/parseTag"
 interface ExerciseCatalogCardProps {
     colors: ColorsType,
     item: ExerciseCatalog
+    onPress: () => void
 }
-export const ExerciseCatalogCard = ({colors,item} : ExerciseCatalogCardProps) => {
+export const ExerciseCatalogCard = ({colors,item,onPress} : ExerciseCatalogCardProps) => {
 
-    const parseTags = () : string[] => {
-        let tags : string[] = []
-        try{
-            tags = item.tags ? JSON.parse(item.tags) : []
-            
-        }catch(e){
-            tags = []
-            console.log(e)
-        }
-        return tags;
-    }
+   
     const styles = StyleSheet.create({
         container : {
             backgroundColor: colors.surface,
@@ -72,6 +64,7 @@ export const ExerciseCatalogCard = ({colors,item} : ExerciseCatalogCardProps) =>
     })
     return (
         <TouchableOpacity
+            onPress={onPress}
             style={styles.container}
         >
             <View style={styles.header}>
@@ -85,7 +78,7 @@ export const ExerciseCatalogCard = ({colors,item} : ExerciseCatalogCardProps) =>
             </View>
             <View style={styles.tags}>
                 {
-                    parseTags().map(tag =>(
+                    parseTags(item).map(tag =>(
                         <View style={styles.tag} key={tag}>
                             <Text style={styles.tagText}>
                                 {tag}
