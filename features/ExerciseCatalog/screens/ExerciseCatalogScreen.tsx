@@ -1,4 +1,4 @@
-import { ActivityIndicator, View } from "react-native"
+import { ActivityIndicator, StyleSheet, View } from "react-native"
 
 import { Header } from "@/shared/ui/Header"
 
@@ -12,23 +12,37 @@ import { ExerciseCatalogEmptyList } from "../UI/ExerciseCatalogEmptyList"
 import { ModalWindow } from "@/shared/ui/modalWindow"
 import { ExerciseCatalog } from "@/db/type"
 import { ExerciseCatalogDetailedView } from "../UI/ExerciseCatalogDetailedView"
+import { ExerciseCatalogAddButton } from "../UI/ExerciseCatalogAddButton"
 
 
 export const ExerciseCatalogScreen = () => {
-    
+    interface OpenWindowStates  {
+        detailView: boolean,
+        createForm: boolean
+    }
     const {items,loading} = useExerciseCatalog()
     const [search,setSearch] = useState<string>('')
-    const[openWindow,setOpenWindow] = useState(false)
+    const[openWindow,setOpenWindow] = useState<OpenWindowStates>({
+        detailView: false,
+        createForm: false
+    })
+    const changeOpenWindowFnc = (field: keyof OpenWindowStates) => {
+        setOpenWindow((prev) => ({
+            ...prev,
+            [field]: !prev[field]
+        }))
+    }
+
     const[selectItem,setSelectItem] = useState<ExerciseCatalog | null>(null)
 
     const openViewWindow = (item: ExerciseCatalog) => {
         setSelectItem(item)
-        setOpenWindow(true)
+        changeOpenWindowFnc('detailView')
     }
 
     const closeViewWindow = () => {
         setSelectItem(null)
-        setOpenWindow(false)
+        changeOpenWindowFnc('detailView')
     }
 
     const changeTextSearch = (text: string) => {
@@ -45,13 +59,20 @@ export const ExerciseCatalogScreen = () => {
         items;
         return filter;
     }
-
+    const styles = StyleSheet.create({
+        header: {
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignContent: 'center',
+            alignItems: 'center'
+        }
+    })
     return (
         <>
             {
-                (openWindow && selectItem) && (
+                (openWindow.detailView && selectItem) && (
                     <ModalWindow
-                        isVisible={openWindow}
+                        isVisible={openWindow.detailView}
                         onClose={closeViewWindow}
                     >
                        <ExerciseCatalogDetailedView 
@@ -60,12 +81,27 @@ export const ExerciseCatalogScreen = () => {
                     </ModalWindow>
                 )
             }
+            {
+                (openWindow.createForm && (
+                    <ModalWindow
+                        isVisible={openWindow.createForm}
+                        onClose={() => changeOpenWindowFnc('createForm')}
+                    >
+                        <View>
+
+                        </View>
+                    </ModalWindow>
+                ))
+            }
             <View>
-            <View>
+            <View style={styles.header}>
                 <Header 
                     title="Упражнения"
                     size={30}
                     color={Colors?.text as string}
+                />
+                <ExerciseCatalogAddButton 
+                    onPress={() => changeOpenWindowFnc('createForm')}
                 />
             </View>
             <View>
