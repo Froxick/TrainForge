@@ -13,6 +13,7 @@ import { ModalWindow } from "@/shared/ui/modalWindow"
 import { ExerciseCatalog } from "@/db/type"
 import { ExerciseCatalogDetailedView } from "../UI/ExerciseCatalogDetailedView"
 import { ExerciseCatalogAddButton } from "../UI/ExerciseCatalogAddButton"
+import { ExerciseCatalogForm } from "../UI/ExerciseCatalogForm"
 
 
 export const ExerciseCatalogScreen = () => {
@@ -84,12 +85,11 @@ export const ExerciseCatalogScreen = () => {
             {
                 (openWindow.createForm && (
                     <ModalWindow
+                        title="Упражнение"
                         isVisible={openWindow.createForm}
                         onClose={() => changeOpenWindowFnc('createForm')}
                     >
-                        <View>
-
-                        </View>
+                        <ExerciseCatalogForm />
                     </ModalWindow>
                 ))
             }
