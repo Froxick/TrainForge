@@ -7,11 +7,27 @@ import { ExerciseCatalog } from '../type';
 
 export const ExerciseCatalogRepository = {
   getAll: async (): Promise<ExerciseCatalog[]> => {
-    const db = (database as any).db as SQLite.SQLiteDatabase;
-    const result = await db.getAllAsync<ExerciseCatalog>(
-      `SELECT * FROM ExerciseCatalog ORDER BY rating DESC`
-    );
-    return result;
+    try {
+      const db = (database as any).db as SQLite.SQLiteDatabase;
+      
+      
+      const tableExists = await db.getFirstAsync<{ name: string }>(
+        "SELECT name FROM sqlite_master WHERE type='table' AND name='ExerciseCatalog'"
+      );
+      
+      if (!tableExists) {
+        console.warn('Table ExerciseCatalog does not exist yet');
+        return []; 
+      }
+      
+      const result = await db.getAllAsync<ExerciseCatalog>(
+        `SELECT * FROM ExerciseCatalog ORDER BY rating DESC`
+      );
+      return result;
+    } catch (error) {
+      console.error('Error in getAll:', error);
+      return []; 
+    }
   },
 
   getById: async (id: string): Promise<ExerciseCatalog | null> => {
