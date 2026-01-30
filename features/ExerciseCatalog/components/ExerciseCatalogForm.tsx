@@ -2,12 +2,50 @@ import { Colors } from "@/shared/constants/theme"
 import { Button } from "@/shared/ui/Button"
 import { FormInput } from "@/shared/ui/FormInput"
 import { StyleSheet, Text, View } from "react-native"
-import { ExerciseCatalogRatingSelector } from "../components/ExerciseCatalogRatingSelector"
+import { ExerciseCatalogRatingSelector } from "./ExerciseCatalogRatingSelector"
+
+import { EXERCISE_CATALOG_TAG_LIST } from "@/shared/constants/exerciseCatalogTagsList"
+import { ExerciseCatalogTagSelector } from "./ExerciseCatalogTagSelector"
+import { useExerciseCatalogForm } from "../hooks/useExerciseCatalogForm"
+import { parseStringTagsToArray, serializeTags } from "../util/parseTag"
+import { ExerciseCatalog } from "@/db/type"
 
 interface ExerciseCatalogFormProps {
-
+    onCreate: (data: Omit<ExerciseCatalog, 'id' | 'createdByUser'>) => void,
+    closeForm : () => void
 }
-export const ExerciseCatalogForm = ({} : ExerciseCatalogFormProps) => {
+export const ExerciseCatalogForm = ({onCreate,closeForm} : ExerciseCatalogFormProps) => {
+    const {state,setStateForm,validateForm} = useExerciseCatalogForm()
+
+    const onCreateExercise = () => {
+        if(validateForm()){
+            const data : Omit<ExerciseCatalog, 'id' | 'createdByUser'> = {
+                name: state.name,
+                description: state.description,
+                rating: state.rating,
+                tags: state.tags
+            }
+           
+            onCreate(data)
+            closeForm()
+        }
+    }
+
+    const changeRating = (rating: number) => {
+        setStateForm('rating',rating)
+    }
+    const setTagsArr = (tags: string[]) => {
+       if(tags.length < 1) {
+         setStateForm('tags','')
+       } else {
+         const tags_string = serializeTags(tags)
+        if(tags_string) {
+                setStateForm('tags',tags_string)
+        } 
+       }
+      
+    }
+
     const styles = StyleSheet.create({
         container: {
             marginTop: 10,
@@ -47,8 +85,8 @@ export const ExerciseCatalogForm = ({} : ExerciseCatalogFormProps) => {
                      <FormInput
                         clearInput={() => {}}
                         icon='fitness'
-                        value=""
-                        setValue={() => {}}
+                        value={state.name}
+                        setValue={(t) => setStateForm('name',t)}
                         placheholder="Название"
                     />
                 </View>
@@ -59,8 +97,8 @@ export const ExerciseCatalogForm = ({} : ExerciseCatalogFormProps) => {
                      <FormInput 
                         clearInput={() => {}}
                         icon='document-text'
-                        value=""
-                        setValue={() => {}}
+                        value={state.description as string}
+                        setValue={(t) => setStateForm('description',t)}
                         placheholder="Описание"
                         multiline={true}
                         numberOfLines={3}
@@ -73,11 +111,20 @@ export const ExerciseCatalogForm = ({} : ExerciseCatalogFormProps) => {
                     Рейтинг
                 </Text>
                     <ExerciseCatalogRatingSelector 
-                        initialRating={3}
-                        onRatingChange={() => {}}
+                        initialRating={state.rating}
+                        onRatingChange={changeRating}
                         size={24}
                         maxRating={5}
                     />
+               </View>
+               <View>
+                <ExerciseCatalogTagSelector
+                    itemsList={EXERCISE_CATALOG_TAG_LIST}
+                    selectedItems={parseStringTagsToArray(state.tags)}
+                    onSelectItems={setTagsArr}
+
+
+                />
                </View>
                
             </View>
@@ -90,13 +137,11 @@ export const ExerciseCatalogForm = ({} : ExerciseCatalogFormProps) => {
                     backgraundColor={Colors.primary}
                     bold
                     heigh={45}
-                    onPress={() => {}}
-                    disable={false}
+                    onPress={onCreateExercise}
+                    disable={!validateForm()}
                     disabledColor={Colors.disabledColor}
                     subTitle="Создайте своё упражнение"
                     subTitleColor={Colors.darkTextSecondary}
-
-
                 />
             </View>
         </View>

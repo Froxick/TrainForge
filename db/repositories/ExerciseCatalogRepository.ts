@@ -41,26 +41,40 @@ export const ExerciseCatalogRepository = {
 
   create: async (
     data: Omit<ExerciseCatalog, 'id' | 'createdByUser'>
-    ): Promise<void> => {
+  ): Promise<void> => {
     const db = (database as any).db as SQLite.SQLiteDatabase;
-
-    await db.runAsync(
-        `
-        INSERT INTO ExerciseCatalog
-        (id, name, tags, description, rating, createdByUser)
-        VALUES (?, ?, ?, ?, ?, ?)
-        `,
+    
+    if (!data.name || data.name.trim() === '') {
+      throw new Error('Name is required');
+    }
+    
+    console.log('Creating exercise with:', data);
+    console.log('Name value:', `"${data.name}"`);
+    console.log('Name length:', data.name.length);
+    console.log('Name trimmed:', `"${data.name.trim()}"`);
+    
+    try {
+      
+      await db.runAsync(
+        `INSERT INTO ExerciseCatalog (id, name, tags, description, rating, createdByUser)
+        VALUES ($id, $name, $tags, $description, $rating, $createdByUser)`,
         {
-        1: nanoid(),
-        2: data.name,
-        3: data.tags ? JSON.stringify(data.tags) : null,
-        4: data.description ?? null,
-        5: data.rating ?? 0,
-        6: 1,
+          $id: nanoid(),
+          $name: data.name.trim(),
+          $tags: data.tags || null,
+          $description: data.description ?? null,
+          $rating: data.rating ?? 0,
+          $createdByUser: 1,
         }
-    );
-    },
-
+      );
+      console.log('Exercise created successfully');
+    } catch (error: any) {
+      console.error('SQL error details:', error);
+      console.error('Error code:', error.code);
+      console.error('Error message:', error.message);
+      throw error;
+    }
+  },
 
   update: async (
     id: string,

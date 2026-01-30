@@ -12,6 +12,7 @@ interface ButtonProps {
     disabledColor: string,
     subTitle? : string,
     subTitleColor? :string
+    width? :number
 }
 export const Button = ({...props} : ButtonProps) => {
     const styles = StyleSheet.create({
@@ -21,7 +22,8 @@ export const Button = ({...props} : ButtonProps) => {
             borderRadius: 12,
             justifyContent: 'center',
             alignItems: 'center',
-            height: props.heigh
+            height: props.heigh,
+            width: props.width
         },
         text : {
             color: props.textColor,

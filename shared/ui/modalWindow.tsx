@@ -1,7 +1,7 @@
-
-import { ReactNode } from "react"
-import { Dimensions, Modal, ScrollView, StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native"
-import { Colors } from "../constants/theme"
+import { Dimensions, ScrollView, StyleSheet, Text, View } from 'react-native';
+import Modal from 'react-native-modal';
+import { Colors } from '../constants/theme';
+import { ReactNode } from 'react';
 interface ModalWindowProps {
     children: ReactNode,
     isVisible: boolean,
@@ -9,43 +9,15 @@ interface ModalWindowProps {
     title?: string,
 
 }
-const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
-
+const {  height: screenHeight } = Dimensions.get('window')
 export const ModalWindow = ({isVisible,onClose,title,children} : ModalWindowProps) => {
    
     const styles = StyleSheet.create({
-        centeredView: {
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-        },
-        modalOverlay: {
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: '#000000da'
-        },
         modalContent: {
             backgroundColor: Colors.surface,
             borderRadius: 12,
             padding: 20,
-            shadowColor: '#000',
-            shadowOffset: {
-                width: 0,
-                height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 4,
-            elevation: 5,
-            width: screenWidth * 0.85, 
-            maxWidth: 400,
-            maxHeight: screenHeight * 0.8, 
-            marginHorizontal: 20,
-        },
-        scrollContent: {
-            flexGrow: 1,
+            maxHeight: screenHeight* 0.8,
         },
         modalTitle: {
             color: Colors.text,
@@ -58,34 +30,29 @@ export const ModalWindow = ({isVisible,onClose,title,children} : ModalWindowProp
    
     return (
         <Modal
-            visible={isVisible}
-            animationType="fade"
-            transparent={true}
-            onRequestClose={onClose}
+            isVisible={isVisible}
+            onBackdropPress={onClose}
+            onBackButtonPress={onClose}
+            animationIn="fadeIn"
+            animationOut="fadeOut"
+            backdropOpacity={0.7}
+            style={{ margin: 20, justifyContent: 'center' }}
         >
-            <View style={styles.centeredView}>
+            <View style={styles.modalContent}>
+               
+                {title && (
+                    <Text style={styles.modalTitle}>
+                        {title}
+                    </Text>
+                )}
                 
-                <TouchableWithoutFeedback onPress={onClose}>
-                    <View style={styles.modalOverlay} />
-                </TouchableWithoutFeedback>
-                
-              
-                <View style={styles.modalContent}>
-                   
-                    {title && (
-                        <Text style={styles.modalTitle}>
-                            {title}
-                        </Text>
-                    )}
-                    
-                   
-                    <ScrollView 
-                      contentContainerStyle={styles.scrollContent}
-                      showsVerticalScrollIndicator={false}
-                    >
-                        {children}
-                    </ScrollView>
-                </View>
+                <ScrollView 
+                    style={{ maxHeight: screenHeight * 0.6 }}
+                    contentContainerStyle={{ flexGrow: 1 }}
+                    showsVerticalScrollIndicator={false}
+                >
+                    {children}
+                </ScrollView>
             </View>
         </Modal>
     )

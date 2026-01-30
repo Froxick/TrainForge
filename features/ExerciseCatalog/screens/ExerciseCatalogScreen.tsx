@@ -13,7 +13,7 @@ import { ModalWindow } from "@/shared/ui/modalWindow"
 import { ExerciseCatalog } from "@/db/type"
 import { ExerciseCatalogDetailedView } from "../UI/ExerciseCatalogDetailedView"
 import { ExerciseCatalogAddButton } from "../UI/ExerciseCatalogAddButton"
-import { ExerciseCatalogForm } from "../UI/ExerciseCatalogForm"
+import { ExerciseCatalogForm } from "../components/ExerciseCatalogForm"
 
 
 export const ExerciseCatalogScreen = () => {
@@ -21,7 +21,8 @@ export const ExerciseCatalogScreen = () => {
         detailView: boolean,
         createForm: boolean
     }
-    const {items,loading} = useExerciseCatalog()
+    const {items,loading,createItem} = useExerciseCatalog()
+   
     const [search,setSearch] = useState<string>('')
     const[openWindow,setOpenWindow] = useState<OpenWindowStates>({
         detailView: false,
@@ -89,7 +90,10 @@ export const ExerciseCatalogScreen = () => {
                         isVisible={openWindow.createForm}
                         onClose={() => changeOpenWindowFnc('createForm')}
                     >
-                        <ExerciseCatalogForm />
+                        <ExerciseCatalogForm 
+                            onCreate={createItem}
+                            closeForm={() => changeOpenWindowFnc('createForm')}
+                        />
                     </ModalWindow>
                 ))
             }

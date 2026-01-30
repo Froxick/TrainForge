@@ -16,17 +16,29 @@ export default function RootLayout() {
     const [ready, setReady] = useState(false)
 
     useEffect(() => {
-        (async () => {
-            await database.initialize()
-            await seedExerciseCatalog();
-            setReady(true)
-        })()
-       
-        const name = secureStoreUtil.getItem('name')
-        if(name) {
-            setHasName(true)
-        }
-        setLoading(false)
+       const initializeApp = async () => {
+            try {
+               
+                await database.initialize();
+                console.log('Database initialized');
+                
+                
+                await seedExerciseCatalog();
+                console.log('Seeding completed');
+                
+                
+                const name = secureStoreUtil.getItem('name');
+                setHasName(!!name);
+                
+                
+                setReady(true);
+            } catch (error) {
+                console.error('Initialization error:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        initializeApp()
     },[])
 
   if(loading && !ready) {
