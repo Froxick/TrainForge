@@ -19,14 +19,16 @@ import { ExerciseCatalogForm } from "../components/ExerciseCatalogForm"
 export const ExerciseCatalogScreen = () => {
     interface OpenWindowStates  {
         detailView: boolean,
-        createForm: boolean
+        createForm: boolean,
+        editForm: boolean
     }
-    const {items,loading,createItem} = useExerciseCatalog()
+    const {items,loading,createItem,deleteItem,updateItem} = useExerciseCatalog()
    
     const [search,setSearch] = useState<string>('')
     const[openWindow,setOpenWindow] = useState<OpenWindowStates>({
         detailView: false,
-        createForm: false
+        createForm: false,
+        editForm: false
     })
     const changeOpenWindowFnc = (field: keyof OpenWindowStates) => {
         setOpenWindow((prev) => ({
@@ -34,6 +36,7 @@ export const ExerciseCatalogScreen = () => {
             [field]: !prev[field]
         }))
     }
+
 
     const[selectItem,setSelectItem] = useState<ExerciseCatalog | null>(null)
 
@@ -53,6 +56,20 @@ export const ExerciseCatalogScreen = () => {
 
     const clearSearch = () => {
         setSearch('')
+    }
+    const deleteExercise = async () => {
+        if(!selectItem) return;
+        await deleteItem(selectItem?.id);
+        changeOpenWindowFnc('detailView')
+    }
+    const updateExercise = async (data: ExerciseCatalog) => {
+        await updateItem(data.id,{
+            name: data.name,
+            description: data.description,
+            tags: data.tags,
+            rating: data.rating
+        })
+        setSelectItem(data);
     }
 
     const itemsFilter = () => {
@@ -77,7 +94,9 @@ export const ExerciseCatalogScreen = () => {
                         isVisible={openWindow.detailView}
                         onClose={closeViewWindow}
                     >
-                       <ExerciseCatalogDetailedView 
+                       <ExerciseCatalogDetailedView
+                         onOpenEdit={() => changeOpenWindowFnc('editForm')}
+                         onDelete={deleteExercise}
                          item={selectItem}
                        />
                     </ModalWindow>
@@ -91,8 +110,27 @@ export const ExerciseCatalogScreen = () => {
                         onClose={() => changeOpenWindowFnc('createForm')}
                     >
                         <ExerciseCatalogForm 
-                            onCreate={createItem}
+                            onSubmit={createItem}
+                            onUpdate={updateExercise}
+                            isEdit={false}
                             closeForm={() => changeOpenWindowFnc('createForm')}
+                        />
+                    </ModalWindow>
+                ))
+            }
+            {
+                (openWindow.editForm && (
+                    <ModalWindow
+                        title="Упражнение"
+                        isVisible={openWindow.editForm}
+                        onClose={() => changeOpenWindowFnc('editForm')}
+                    >
+                        <ExerciseCatalogForm 
+                            onSubmit={createItem}
+                            onUpdate={updateExercise}
+                            item={selectItem as ExerciseCatalog}
+                            isEdit={true}
+                            closeForm={() => changeOpenWindowFnc('editForm')}
                         />
                     </ModalWindow>
                 ))

@@ -9,15 +9,26 @@ import { ExerciseCatalogTagSelector } from "./ExerciseCatalogTagSelector"
 import { useExerciseCatalogForm } from "../hooks/useExerciseCatalogForm"
 import { parseStringTagsToArray, serializeTags } from "../util/parseTag"
 import { ExerciseCatalog } from "@/db/type"
+import { useEffect } from "react"
 
 interface ExerciseCatalogFormProps {
-    onCreate: (data: Omit<ExerciseCatalog, 'id' | 'createdByUser'>) => void,
-    closeForm : () => void
-}
-export const ExerciseCatalogForm = ({onCreate,closeForm} : ExerciseCatalogFormProps) => {
-    const {state,setStateForm,validateForm} = useExerciseCatalogForm()
+    onSubmit: (data: Omit<ExerciseCatalog, 'id' | 'createdByUser'>) => void,
+    onUpdate: (data: ExerciseCatalog) => void
+    closeForm : () => void,
+    isEdit: boolean,
+    item?: ExerciseCatalog
 
-    const onCreateExercise = () => {
+}
+export const ExerciseCatalogForm = ({onSubmit,closeForm,isEdit,item,onUpdate} : ExerciseCatalogFormProps) => {
+    const {state,setStateForm,validateForm,setInitalState} = useExerciseCatalogForm()
+
+    useEffect(() => {
+        if(isEdit && item) {
+            setInitalState(item)
+        }
+    }, [isEdit,item,setInitalState])
+
+    const handleActionForm = () => {
         if(validateForm()){
             const data : Omit<ExerciseCatalog, 'id' | 'createdByUser'> = {
                 name: state.name,
@@ -26,7 +37,15 @@ export const ExerciseCatalogForm = ({onCreate,closeForm} : ExerciseCatalogFormPr
                 tags: state.tags
             }
            
-            onCreate(data)
+            if(isEdit && item) {
+                onUpdate({...data,
+                    id: item.id,
+                    createdByUser: item.createdByUser
+                })
+            } else{
+                onSubmit(data);
+            }
+
             closeForm()
         }
     }
@@ -130,17 +149,17 @@ export const ExerciseCatalogForm = ({onCreate,closeForm} : ExerciseCatalogFormPr
             </View>
             <View style={styles.buttonContainer}>
                 <Button 
-                    title="Создать"
+                    title={isEdit ? 'Сохранить' : 'Создать'}
                     titleSize={17}
                     padding={8}
                     textColor={Colors.text}
                     backgraundColor={Colors.primary}
                     bold
                     heigh={45}
-                    onPress={onCreateExercise}
+                    onPress={handleActionForm}
                     disable={!validateForm()}
                     disabledColor={Colors.disabledColor}
-                    subTitle="Создайте своё упражнение"
+                    subTitle={isEdit ? 'Сохранить изменения' : 'Создайте своё упражнение'}
                     subTitleColor={Colors.darkTextSecondary}
                 />
             </View>

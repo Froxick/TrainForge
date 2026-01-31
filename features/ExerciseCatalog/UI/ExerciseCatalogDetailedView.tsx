@@ -3,10 +3,14 @@ import { Colors } from "@/shared/constants/theme"
 import { Ionicons } from "@expo/vector-icons"
 import { StyleSheet, View, Text } from "react-native"
 import { parseTags } from "../util/parseTag"
+import { Button } from "@/shared/ui/Button"
 interface ExerciseCatalogDetailedViewProps {
     item: ExerciseCatalog
+    onDelete: () => void,
+    onOpenEdit: () => void
 }
-export const ExerciseCatalogDetailedView = ({item} : ExerciseCatalogDetailedViewProps) => {
+export const ExerciseCatalogDetailedView = ({item,onDelete,onOpenEdit} : ExerciseCatalogDetailedViewProps) => {
+    
     const styles = StyleSheet.create({
         container: {
             backgroundColor: Colors.surface
@@ -76,6 +80,10 @@ export const ExerciseCatalogDetailedView = ({item} : ExerciseCatalogDetailedView
             fontSize: 14,
             fontWeight: 'bold'
         },
+        buttonContainer : {
+            flexDirection: 'row',
+            justifyContent: 'space-between'
+        }
     })
     return(
         <View style={styles.container}>
@@ -114,7 +122,7 @@ export const ExerciseCatalogDetailedView = ({item} : ExerciseCatalogDetailedView
                     </Text>
                     {item.description ? (
                         <Text style={styles.descriptionText}>
-                            {item.description}
+                            {item.description || ''}
                         </Text>
                     ) : (
                         <Text>
@@ -122,6 +130,39 @@ export const ExerciseCatalogDetailedView = ({item} : ExerciseCatalogDetailedView
                         </Text>
                     )}
                 </View>
+                 {
+                    ( Boolean(item.createdByUser) === true) && (
+                        <View style={styles.buttonContainer}>
+                            
+                            <Button 
+                                title="Изменить"
+                                titleSize={14}
+                                textColor={Colors.text}
+                                backgraundColor={Colors.rpeLow}
+                                padding={5}
+                                heigh={42}
+                                width={135}
+                                bold
+                                onPress={onOpenEdit}
+                                disable={false}
+                                disabledColor={Colors.disabledColor}
+                            />
+                            <Button 
+                                title="Удалить"
+                                titleSize={14}
+                                textColor={Colors.text}
+                                backgraundColor={Colors.darkRed}
+                                padding={5}
+                                heigh={42}
+                                width={135}
+                                bold
+                                onPress={onDelete}
+                                disable={false}
+                                disabledColor={Colors.disabledColor}
+                            />
+                        </View>
+                    )
+                 }
             </View>
             
         </View>
