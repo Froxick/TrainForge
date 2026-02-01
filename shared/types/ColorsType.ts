@@ -13,7 +13,8 @@ export type ColorsType = {
   darkRed: string;
   tabIconDefault: string;
   tabIconSelected: string;
-
+  successBackGround: string,
+  dangerBackGround: string,
   success: string;
   warning: string;
   danger: string;

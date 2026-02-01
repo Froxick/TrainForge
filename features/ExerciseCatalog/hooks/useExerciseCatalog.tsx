@@ -4,9 +4,45 @@
 import { ExerciseCatalogRepository } from "@/db/repositories/ExerciseCatalogRepository"
 import { ExerciseCatalog } from "@/db/type"
 import { useEffect, useState } from "react"
+import { IExerciseCatalogFilters } from "../types/types"
 
 export const useExerciseCatalog = () => {
     const [items,setItems] = useState<ExerciseCatalog[]>([])
+    const[filters,setFilters] = useState<IExerciseCatalogFilters>({
+        rating: true,
+        createByUser: 'all'
+    })
+
+    const toggleRating = () => {
+        setFilters((prev) => ({
+            ...prev,
+            rating: !prev.rating
+        }))
+    }
+
+    const toggleCreateByUser = () => {
+        setFilters((prev) => {
+            if(filters.createByUser === 'all') {
+                return {
+                    ...prev,
+                    createByUser: 'default'
+                }
+            } else if(
+                filters.createByUser === 'default' 
+            ) {
+                 return {
+                    ...prev,
+                    createByUser: 'user'
+                }
+            } else{ 
+                 return {
+                    ...prev,
+                    createByUser: 'all'
+                }
+            }
+        })
+    }
+
     const[loading,setLoading] = useState(true)
 
 
@@ -48,6 +84,7 @@ export const useExerciseCatalog = () => {
     
     return {
        items,loading,getOne,
-       createItem,deleteItem,updateItem
+       createItem,deleteItem,updateItem,
+       toggleCreateByUser,toggleRating,filters
     }
 }

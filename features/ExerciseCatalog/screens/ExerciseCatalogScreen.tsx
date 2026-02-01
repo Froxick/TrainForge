@@ -22,7 +22,9 @@ export const ExerciseCatalogScreen = () => {
         createForm: boolean,
         editForm: boolean
     }
-    const {items,loading,createItem,deleteItem,updateItem} = useExerciseCatalog()
+    const {items,loading,createItem,deleteItem,updateItem,toggleCreateByUser,toggleRating,
+        filters
+    } = useExerciseCatalog()
    
     const [search,setSearch] = useState<string>('')
     const[openWindow,setOpenWindow] = useState<OpenWindowStates>({
@@ -72,12 +74,35 @@ export const ExerciseCatalogScreen = () => {
         setSelectItem(data);
     }
 
-    const itemsFilter = () => {
-        const filter = search.length > 0 ? 
-            items.filter(el => el.name.toLocaleUpperCase().includes(search.toLocaleUpperCase())) : 
-        items;
-        return filter;
-    }
+   const itemsFilter = () => {
+    const createByUserFiltered = () => {
+        if (filters.createByUser === 'all') {
+            return items;
+        } else if (filters.createByUser === 'default') {
+            return items.filter(el => !el.createdByUser);
+        } else {
+            return items.filter(el => !!el.createdByUser);
+        }
+    };
+
+    
+    const searchFiltered = search.length > 0
+        ? createByUserFiltered().filter(el => 
+            el.name.toUpperCase().includes(search.toUpperCase())
+        )
+        : createByUserFiltered();
+
+    
+    const sortedItems = [...searchFiltered].sort((a, b) => {
+        if (filters.rating) {
+            return b.rating - a.rating;
+        } else {
+            return a.rating - b.rating;
+        }
+    });
+
+    return sortedItems;
+};
     const styles = StyleSheet.create({
         header: {
             flexDirection: 'row',
@@ -152,6 +177,10 @@ export const ExerciseCatalogScreen = () => {
                     setValueInput={changeTextSearch}
                     clearValueInput={clearSearch}
                     colors={Colors as ColorsType}
+                    onToggleCreateByUserFilter={toggleCreateByUser}
+                    onToggleRatingFilter={toggleRating}
+                    ratingFilter={filters.rating}
+                    createByUserFilter={filters.createByUser}
                 />
             </View>
             <View style={{marginTop: 20}}>

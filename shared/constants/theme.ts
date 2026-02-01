@@ -19,9 +19,10 @@ export const Colors : ColorsType = {
     tabIconSelected: '#ff4000',
 
     success: '#4CAF50',
+    successBackGround: '#273027',
     warning: '#FFB300',
     danger: '#E53935',
-
+    dangerBackGround: '#2c2322',
     rpeLow: '#4CAF50',
     rpeMedium: '#FFB300',
     rpeHigh: '#E53935',

@@ -13,9 +13,10 @@ export const ExerciseCatalogListRender = ({
     const styles = StyleSheet.create({
         container: {
             flexDirection: 'column',
+            flex: 1,
             gap: 15,
             paddingBottom: 50,
-            marginBottom: 300
+            marginBottom: 500
         }
     })
     return (
