@@ -9,6 +9,7 @@ import { HomeActiveProgramCard } from "../ui/HomeActiveProgramCard"
 import { HomeTodayTrain } from "../ui/HomeTodayTrain"
 import { HomeAdviceCard } from "../ui/HomeAdviceCard"
 import { HomeHelloCard } from "../ui/HomeHelloCard"
+import { HomeEmptyActiveTrainCard } from "../ui/HomeEmptyActiveTrainCard"
 
 
 export const HomeScreen = () => {
@@ -53,7 +54,8 @@ export const HomeScreen = () => {
             }}>
                 {/* <HomeActiveProgramCard /> */}
                 <HomeHelloCard />
-                <HomeTodayTrain />
+                {/* <HomeTodayTrain /> */}
+                <HomeEmptyActiveTrainCard />
                 <HomeAdviceCard 
                     title="Регулярность важнее интенсивности."
                     subTitle="Даже короткая тренировка лучше пропуска."
