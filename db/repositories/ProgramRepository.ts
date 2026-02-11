@@ -73,7 +73,19 @@ export const ProgramRepository = {
       throw error;
     }
   },
+  updateStatus: async (
+    id: string,
+    status: EntityStatusProgram
+   ): Promise<void> => {
 
+    const db = (database as any).db as SQLite.SQLiteDatabase;
+
+    await db.runAsync(
+            `UPDATE Program SET status = ? WHERE id = ?`,
+            [status, id]
+        );
+        
+  },
  
   update: async (
     id: string,
