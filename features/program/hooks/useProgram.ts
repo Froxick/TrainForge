@@ -13,6 +13,12 @@ export const useProgram = () => {
         setLoading(false)
     }
 
+    const checkActiveProgram = () => {
+        const find = programs.filter(el => el.status === EntityStatusProgram.Activity)
+        if(find.length > 0 ) return true;
+        else return false
+    }
+
     const createProgram = async (data: Omit<Program,'id'>) => {
         const programId = await ProgramRepository.create(data)
         await initFunction()
@@ -45,7 +51,7 @@ export const useProgram = () => {
     return {
         programs,loading,
         createProgram,deleteProgram,updateProgram,getOneProgram,
-        updateProgramStatus
+        updateProgramStatus,checkActiveProgram
     }
 
 

@@ -2,8 +2,10 @@ import { StyleSheet, Text, View } from "react-native"
 import { HomeCardContainer } from "./HomeCardContainer"
 import { Colors } from "@/shared/constants/theme"
 import { Button } from "@/shared/ui/Button"
-
-export const HomeEmptyActiveTrainCard = () => {
+interface HomeEmptyActiveTrainCardProps {
+  disableButton : boolean
+}
+export const HomeEmptyActiveTrainCard = ({disableButton} : HomeEmptyActiveTrainCardProps) => {
     const styles = StyleSheet.create({
         container: {
             gap: 10
@@ -36,7 +38,7 @@ export const HomeEmptyActiveTrainCard = () => {
             bold
             heigh={43}
             onPress={() => {}}
-            disable={false}
+            disable={disableButton}
             disabledColor={Colors.disabledColor}
             subTitle="Автоматически начните следующую тренировку активной программы"
             subTitleColor={Colors.darkTextSecondary}

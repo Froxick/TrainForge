@@ -43,8 +43,13 @@ export interface Day {
   weekId: string;
   name: string;
   dayIndex: number;
+  type: DayType,
   status: EntityStatusProgram;
   description?: string;
+}
+export enum DayType {
+  Training = "Training",
+  Rest = "Rest"
 }
 
 export interface Week {

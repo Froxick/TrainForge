@@ -49,11 +49,12 @@ export class TrainForgeDatabase {
         FOREIGN KEY (programId) REFERENCES Program(id) ON DELETE CASCADE
       );
 
-      CREATE TABLE IF NOT EXISTS Day (
+     CREATE TABLE IF NOT EXISTS Day (
         id TEXT PRIMARY KEY,
         weekId TEXT NOT NULL,
         name TEXT NOT NULL,
         dayIndex INTEGER NOT NULL,
+        type TEXT DEFAULT 'Training',
         status TEXT DEFAULT '${EntityStatusProgram.NotStarted}',
         description TEXT,
         FOREIGN KEY (weekId) REFERENCES Week(id) ON DELETE CASCADE

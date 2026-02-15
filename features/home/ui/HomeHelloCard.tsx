@@ -1,7 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { HomeCardContainer } from "./HomeCardContainer"
 import { Colors } from "@/shared/constants/theme"
-import { Ionicons } from "@expo/vector-icons"
 import { HomeHelloItemText } from "./HomeHelloTextItem"
 
 export const HomeHelloCard = () => {
@@ -15,9 +14,9 @@ export const HomeHelloCard = () => {
             borderWidth: 2,
             borderColor: Colors.primary,
             borderRadius: 10,
-            padding: 8,
+            padding: 10,
             alignItems: 'center',
-            marginTop: 12
+            marginTop: 20
 
         },
         textButton :{
@@ -35,13 +34,13 @@ export const HomeHelloCard = () => {
         >
             <View>
                 <View style={{
-                    gap: 8
+                    gap: 10
                 }}>
                     <Text style={styles.titleText}>
                         Чтобы начать тренироваться:
                     </Text>
                     <View style={{
-                        gap: 8
+                        gap: 12
                     }}>
                         <HomeHelloItemText number="1" icon='create' text="Создайте программу"/>
                         <HomeHelloItemText number="2" icon='train' text="Запланируйте тренировки"/>
