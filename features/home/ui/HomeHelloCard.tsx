@@ -3,7 +3,11 @@ import { HomeCardContainer } from "./HomeCardContainer"
 import { Colors } from "@/shared/constants/theme"
 import { HomeHelloItemText } from "./HomeHelloTextItem"
 
-export const HomeHelloCard = () => {
+interface HomeHelloCardProps {
+    toCreate: () => void
+}
+export const HomeHelloCard = ({toCreate} : HomeHelloCardProps) => {
+
     const styles = StyleSheet.create({
         titleText: {
             color: Colors.text,
@@ -47,7 +51,7 @@ export const HomeHelloCard = () => {
                         <HomeHelloItemText number="3" icon='stats-chart' text="Отслеживайте прогресс"/>
                     </View>
                 </View>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button} onPress={toCreate}>
                     <Text style={styles.textButton}>
                         Создать первую программу
                     </Text>

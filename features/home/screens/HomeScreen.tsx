@@ -12,14 +12,18 @@ import { HomeHelloCard } from "../ui/HomeHelloCard"
 import { HomeEmptyActiveTrainCard } from "../ui/HomeEmptyActiveTrainCard"
 import { useProgram } from "@/features/program/hooks/useProgram"
 import { HomeEmptyActiveProgamCard } from "../ui/HomeEmptyActiveProgramCard"
+import { router } from "expo-router"
 
 
 export const HomeScreen = () => {
+     const navigateToCreateScreen = () => {
+        router.push('/(createprogram)/programform')
+    }
     const actionButtons : HomeActionButtonProps[] = [
         {
             title: 'Создать программу',
             icon: 'add-circle',
-            onPress: () => {}
+            onPress:  navigateToCreateScreen
         },
         {
             title: 'Мои программы',
@@ -34,7 +38,8 @@ export const HomeScreen = () => {
     ]
 
     const {programs,loading,checkActiveProgram} = useProgram()
-    console.log(programs.length)
+   
+    // console.log(programs.length)
     return (
         <ScrollView >
             <View>
@@ -62,7 +67,9 @@ export const HomeScreen = () => {
                             
                             
                             {
-                                programs.length === 0 ? <HomeHelloCard /> : 
+                                programs.length === 0 ? <HomeHelloCard toCreate={
+                                    navigateToCreateScreen
+                                }/> : 
                                     (
                                         checkActiveProgram() ? <HomeActiveProgramCard /> :
                                             <HomeEmptyActiveProgamCard />

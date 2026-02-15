@@ -79,6 +79,7 @@ export const useProgramForm = () => {
     return {
         formValue,step,
         clearFormValue,buildProgamStructure,
-        changeFormStep,generateDefaultWeeksName
+        changeFormStep,generateDefaultWeeksName,
+        changeFormValue
     }
 }

@@ -26,7 +26,7 @@ export const HomeActionButton = ({title,icon,onPress} : HomeActionButtonProps) =
         },
     })
     return (
-        <TouchableOpacity style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={onPress}>
             <Ionicons  size={34} name={icon} color={Colors.primary}/>
             <Text style={styles.title}>
                 {title}
