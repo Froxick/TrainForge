@@ -122,12 +122,25 @@ export const useProgramForm = () => {
       updated[index] = value
       changeFormValue('weekNames',updated)
     }
+
+    const handleRestDayChange = (index: number) => {
+       const restDaysSet = new Set(formValue.restDays);
+    
+        if (restDaysSet.has(index)) {
+            restDaysSet.delete(index);
+        } else {
+            restDaysSet.add(index);
+        }
+        
+        changeFormValue('restDays', Array.from(restDaysSet));
+    }
     
     
     return {
         formValue,step,
         clearFormValue,buildProgamStructure,
         changeFormStep,generateDefaultWeeksName,
-        changeFormValue,validationInStep,setWeekCount,handleWeekNameChange
+        changeFormValue,validationInStep,setWeekCount,handleWeekNameChange,
+        handleRestDayChange
     }
 }

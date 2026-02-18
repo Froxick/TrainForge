@@ -7,13 +7,14 @@ import { ProgramCreateFormHeader } from "../ui/ProgramCreateFormHeader"
 import { ProgramCreateFormStepButtons } from "../ui/ProgramCreateFormStepButtons"
 import { ProgramFormStepOne } from "../ui/ProgramFormStepOne"
 import { ProgramFormStepTwo } from "../ui/ProgramFormStepTwo"
+import { ProgramCreateFormStepThree } from "../ui/ProgramCreateFormStepThree"
 
 
 
 export const ProgramCreateFormScreen = () => {
     const {step,formValue,buildProgamStructure,changeFormStep,
         generateDefaultWeeksName,changeFormValue,validationInStep,setWeekCount,
-        handleWeekNameChange
+        handleWeekNameChange,handleRestDayChange
     } = useProgramForm()
 
     const handleBack = () => {
@@ -107,6 +108,14 @@ export const ProgramCreateFormScreen = () => {
                             <ProgramFormStepTwo 
                                 weekNames={formValue.weekNames}
                                 changeWeekName={handleWeekNameChange}
+                            />
+                        )
+                       }
+                       {
+                        step === 3 && (
+                            <ProgramCreateFormStepThree 
+                                restDays={formValue.restDays}
+                                onPickDay={handleRestDayChange}
                             />
                         )
                        }
