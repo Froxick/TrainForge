@@ -21,6 +21,22 @@ export const useProgramForm = () => {
             [field]: value
         }))
     }
+
+    const validationInStep = (step: number) => {
+      if(step === 1) {
+          return formValue.name.length > 3 && 
+            formValue.weekCount !== 0
+      } else if(step === 2) {
+        let isValid = true;
+        formValue.weekNames.forEach(week => {
+            if(week.length < 3) {
+                isValid = false
+            }
+        })
+        return isValid;
+      }
+    }
+
     const clearFormValue = () => {
         setFormValue(initialState)
     }
@@ -74,12 +90,44 @@ export const useProgramForm = () => {
             weeks
         }
     }
+
+    const setWeekCount = (count: number) => {
+
+
+        setFormValue(prev => {
+            const currentLength = prev.weekNames.length
+            
+            let newWeekNames = [...prev.weekNames]
+
+            if(currentLength < count) {
+                const additional = Array.from(
+                    {length: count - currentLength},
+                    (_,i) => `Неделя ${currentLength + i +1}`
+                )
+                newWeekNames = [...newWeekNames,...additional]
+            }
+            if(currentLength > count) {
+                newWeekNames = newWeekNames.slice(0,count)
+            }
+            return {
+                ...prev,
+                weekCount: count,
+                weekNames: newWeekNames
+            }
+        })
+    }
+
+    const handleWeekNameChange = (index: number, value:string) => {
+      const updated = [...formValue.weekNames]
+      updated[index] = value
+      changeFormValue('weekNames',updated)
+    }
     
     
     return {
         formValue,step,
         clearFormValue,buildProgamStructure,
         changeFormStep,generateDefaultWeeksName,
-        changeFormValue
+        changeFormValue,validationInStep,setWeekCount,handleWeekNameChange
     }
 }

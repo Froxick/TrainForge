@@ -6,12 +6,14 @@ import { router } from "expo-router"
 import { ProgramCreateFormHeader } from "../ui/ProgramCreateFormHeader"
 import { ProgramCreateFormStepButtons } from "../ui/ProgramCreateFormStepButtons"
 import { ProgramFormStepOne } from "../ui/ProgramFormStepOne"
+import { ProgramFormStepTwo } from "../ui/ProgramFormStepTwo"
 
 
 
 export const ProgramCreateFormScreen = () => {
     const {step,formValue,buildProgamStructure,changeFormStep,
-        generateDefaultWeeksName,changeFormValue
+        generateDefaultWeeksName,changeFormValue,validationInStep,setWeekCount,
+        handleWeekNameChange
     } = useProgramForm()
 
     const handleBack = () => {
@@ -21,6 +23,11 @@ export const ProgramCreateFormScreen = () => {
             router.back()
         }
     }
+   
+    const handleForward = () => {
+        changeFormStep(step + 1)
+    }
+
 
     const styles = StyleSheet.create({
         scrollContainer: {
@@ -82,20 +89,37 @@ export const ProgramCreateFormScreen = () => {
                         />
                     </View>
                     <View style={styles.contentForm}>
-                        <ProgramFormStepOne 
-                            nameState={formValue.name}
-                            descriptionState={formValue.description as string}
-                            changeName={(text: string) => changeFormValue('name',text)}
-                            changeDescription={(text: string) => changeFormValue('description',text)}
-                            weekCount={formValue.weekCount}
-                            changeWeekCount={(week: number) => changeFormValue('weekCount',week)}
+                       {
+                        step === 1 && (
+                             <ProgramFormStepOne 
+                                    nameState={formValue.name}
+                                    descriptionState={formValue.description as string}
+                                    changeName={(text: string) => changeFormValue('name',text)}
+                                    changeDescription={(text: string) => changeFormValue('description',text)}
+                                    weekCount={formValue.weekCount}
+                                    changeWeekCount={setWeekCount}
 
-                        />
+                             />
+                        )
+                       }
+                       {
+                        step === 2 && (
+                            <ProgramFormStepTwo 
+                                weekNames={formValue.weekNames}
+                                changeWeekName={handleWeekNameChange}
+                            />
+                        )
+                       }
                     </View>
                     <View style={styles.headerContainer}>
                         <ProgramCreateFormStepButtons 
+                            disabledNextStep={step === 1 ? !validationInStep(1) : (
+                                step === 2 ? !validationInStep(2) : false
+                            )
+
+                            }
                             back={handleBack}
-                            forward={() => changeFormStep(step + 1)}
+                            forward={handleForward}
                             backTitle={step > 1 ? 'Назад' : 'Отмена'}
                             forwardTitle={step !== 4 ? 'Продолжить' : 'Создать'}
                         />

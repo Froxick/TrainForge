@@ -19,6 +19,12 @@ export const ProgramCreateFormHeader = ({step} : ProgramCreateFormHeaderProps) =
             color: Colors.text,
             fontSize: 22,
             fontWeight: 'bold'
+        },
+        infoBlock: {
+
+        },
+        infoBlockText: {
+
         }
     })
     return (
@@ -40,6 +46,11 @@ export const ProgramCreateFormHeader = ({step} : ProgramCreateFormHeaderProps) =
                 lineColor='#343434'
                 progressLineColor={Colors.primary}
             />
+            <View style={styles.infoBlock}>
+                <Text style={styles.infoBlockText}>
+                    
+                </Text>
+            </View>
         </View>
     )
 }

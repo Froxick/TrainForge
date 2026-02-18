@@ -5,10 +5,11 @@ interface ProgramCreateFormStepButtonsProps {
     back: () => void,
     backTitle: string,
     forwardTitle: string,
+    disabledNextStep: boolean
    
 }
 export const ProgramCreateFormStepButtons = ({forward,back,
-    backTitle,forwardTitle
+    backTitle,forwardTitle,disabledNextStep
 } : ProgramCreateFormStepButtonsProps) => {
     const styles = StyleSheet.create({
         container: {
@@ -23,11 +24,13 @@ export const ProgramCreateFormStepButtons = ({forward,back,
             alignItems: 'center'
         },
         forwardButton : {
-            backgroundColor: Colors.primary,
+            backgroundColor: disabledNextStep ? Colors.disabledColor : Colors.primary,
+            opacity: disabledNextStep ? 0.5 : 1,
             borderRadius: 15,
             padding: 12,
             alignItems: 'center',
-            width: 160
+            width: 160,
+            
         },
         text: {
             fontSize: 16,
@@ -44,7 +47,7 @@ export const ProgramCreateFormStepButtons = ({forward,back,
                         {backTitle}
                     </Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.forwardButton} onPress={forward}>
+                <TouchableOpacity disabled={disabledNextStep}  style={styles.forwardButton} onPress={forward}>
                     <Text style={styles.text}>
                         {forwardTitle}
                     </Text>
